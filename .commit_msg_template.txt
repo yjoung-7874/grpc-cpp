@@ -1,0 +1,8 @@
+#########################################################################
+### commit message template
+### - Usage: git config commit.template .commit_msg_template.txt
+#########################################################################
+[TITLE]
+
+[TEST] NA
+[Desc][0]

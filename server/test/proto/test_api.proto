@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package unicon.proto.test;
+
+service TestApi {
+  rpc Test (TestRequest) returns (TestReply) {}
+  rpc TestStream (TestRequest) returns (stream TestReply) {}
+  rpc TestBidiStream (stream TestRequest) returns (stream TestReply) {}
+}
+
+message TestRequest {
+  string name = 1;
+}
+
+message TestReply {
+  string message = 1;
+}
