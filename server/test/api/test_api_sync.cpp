@@ -3,7 +3,7 @@
 TestApiSyncImpl::TestApiSyncImpl() {}
 
 grpc::Status TestApiSyncImpl::Test(grpc::ServerContext* context, const TestRequest* request, TestReply* reply) {
-  std::this_thread::sleep_for(std::chrono::seconds(3));
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
   reply->set_message("Hello " + request->name());
   return grpc::Status::OK;
@@ -11,7 +11,7 @@ grpc::Status TestApiSyncImpl::Test(grpc::ServerContext* context, const TestReque
 
 grpc::Status TestApiSyncImpl::TestStream(grpc::ServerContext* context, const TestRequest* request,
                                          grpc::ServerWriter<TestReply>* writer) {
-  for (int i = 0; i < 10; ++i) {
+  for (int i = 0; i < 50; ++i) {
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     TestReply reply;
     reply.set_message("Hello " + request->name() + " - message " + std::to_string(i + 1));
