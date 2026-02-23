@@ -1,11 +1,15 @@
 syntax = "proto3";
 
-package unicon.proto.test;
-
-service TestApi {
+service TestApi_A {
   rpc Test (TestRequest) returns (TestReply) {}
   rpc TestStream (TestRequest) returns (stream TestReply) {}
   rpc TestBidiStream (stream TestRequest) returns (stream TestReply) {}
+}
+
+service TestApi_B {
+    rpc Test(TestRequest) returns (TestReply);
+    rpc TestStream(TestRequest) returns (stream TestReply);
+    rpc TestBidiStream (stream TestRequest) returns (stream TestReply) {}
 }
 
 message TestRequest {
@@ -15,3 +19,4 @@ message TestRequest {
 message TestReply {
   string message = 1;
 }
+

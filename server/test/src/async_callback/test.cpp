@@ -7,7 +7,7 @@
 #include <grpcpp/grpcpp.h>
 #include "server.hpp"
 
-using SERVER_TYPE = SyncServer;
+using SERVER_TYPE = AsyncCallbackServer;
 
 long long percentile(std::vector<long long>& data, double p) {
   if (data.empty()) return 0;

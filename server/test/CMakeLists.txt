@@ -48,7 +48,7 @@ install(
     ${test_api_proto_hdrs}
     ${test_api_grpc_hdrs}
     DESTINATION
-    "include//server/test/proto"
+    "include/server/test/proto"
 )
 
 install(
@@ -58,29 +58,14 @@ install(
     INCLUDES DESTINATION "include"
 )
 
-message(NOTICE "----------------- GRPC_ASYNC_SERVER_TEST -----------------")
-add_executable(async_server_test
-    src/async/test.cpp
-    src/async/server.cpp
-    api/test_api_async.cpp
+message(NOTICE "----------------- GRPC_ASYNC_CALLBACK_SERVER_TEST -----------------")
+add_executable(async_callback_server_test
+    src/async_callback/test.cpp
+    src/async_callback/server.cpp
+    api/test_api_async_callback.cpp
 )
-target_link_libraries(async_server_test PUBLIC grpc_server_async grpc_test_proto)
-target_include_directories(async_server_test PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
-
-add_executable(async_server_gtest
-    src/async/gtest.cpp
-    src/async/server.cpp
-    api/test_api_async.cpp
-)
-target_link_libraries(async_server_gtest PUBLIC grpc_server_async grpc_test_proto GTest::gtest GTest::gtest_main)
-target_include_directories(async_server_gtest PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
-add_test(NAME async_server_gtest COMMAND async_server_gtest)
-
-install(
-  TARGETS async_server_test async_server_gtest
-  RUNTIME DESTINATION bin/server/test
-)
-
+target_link_libraries(async_callback_server_test PUBLIC grpc_server_async_callback grpc_test_proto)
+target_include_directories(async_callback_server_test PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 
 message(NOTICE "----------------- GRPC_SYNC_SERVER_TEST -----------------")
 add_executable(sync_server_test
@@ -90,16 +75,8 @@ add_executable(sync_server_test
 )
 target_link_libraries(sync_server_test PRIVATE grpc_server_sync grpc_test_proto)
 target_include_directories(sync_server_test PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
-add_executable(sync_server_gtest
-    src/sync/gtest.cpp
-    src/sync/server.cpp
-    api/test_api_sync.cpp
-)
-target_link_libraries(sync_server_gtest PRIVATE grpc_server_sync grpc_test_proto GTest::gtest GTest::gtest_main)
-target_include_directories(sync_server_gtest PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
-add_test(NAME sync_server_gtest COMMAND sync_server_gtest)
 
 install(
-  TARGETS sync_server_test sync_server_gtest
-  RUNTIME DESTINATION bin/server/test
+  TARGETS async_callback_server_test sync_server_test
+  RUNTIME DESTINATION "bin/server/test"
 )
