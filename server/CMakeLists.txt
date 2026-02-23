@@ -49,8 +49,8 @@ install(
 
 install(
   TARGETS grpc_server_async_callback
-  ARCHIVE DESTINATION "lib/server/async"
-  LIBRARY DESTINATION "lib/server/async"
+  ARCHIVE DESTINATION "lib/server/async_callback"
+  LIBRARY DESTINATION "lib/server/async_callback"
   INCLUDES DESTINATION "include"
 )
 
